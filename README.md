@@ -20,6 +20,8 @@
 </div>
 
 
+*I'm still testing the addon. There are no known issues so far, but I'm testing it with different types of projects to confirm everything works correctly. A stable version will be released soon — stay tuned!
+
 Timelapse recorder for Blender. This addon helps you capture every step of your work to create awesome timelapse videos. Basically, it takes a screenshot every time you do something in Blender, with a time interval you set. After that, you can load those screenshots into the video sequencer, edit however you want, and export. Or, if you’re feeling lazy, just export straight to MP4.
 
 # Why you need dis?
@@ -44,5 +46,6 @@ Level up your workflow, share your process, and happy Blending!
 
 # How to use
 
+ aaaaaaaaaa, lazy to type ill add it later
 
 
