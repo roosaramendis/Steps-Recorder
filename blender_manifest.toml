@@ -1,0 +1,21 @@
+# Required fields for Blender 4.0+ extensions
+
+schema_version = "1.0.0"
+id = "steps_recorder"  
+name = "Steps Recorder"
+version = "1.0.0"
+type = "add-on"
+maintainer = "Roosara Mendis"
+
+# Optional but recommended fields
+author = "Roosara Mendis"
+tagline = "Capture steps of your Workflow with time interval to create timelapse video"
+category = "3D View"
+module = "Steps-Recorder"  
+license = ["GPL-3.0-only"]
+blender_version_min = "4.0.0"
+
+# List all Python files in your addon
+files = [
+    "__init__.py","operators.py",  # Include all Python files
+]
