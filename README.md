@@ -24,11 +24,11 @@ Timelapse recorder for Blender. This addon helps you capture every step of your 
 
 # Why you need dis?
 
-- Show off your progress! It’s perfect for making proof-of-work vids, create timelapse for tiktok or anyother platform its super useful n if you want to flex your skills or avoid getting accused of using AI. Fr, with all these AI bulls###s, this is here you save you.
+- Show off your progress! It’s perfect for making proof-of-work vids, create timelapse for tiktok or anyother platform its super useful n if you want to flex your skills or avoid getting accused of using AI. Fr, with all these AI bulls###s, this is here to you save you.
 
 - Low resource usage. unlike OBS or other screen recorders that eat up your RAM and slow down Blender (specially if you do some havy stufs), Steps Recorder will helps to keep things smooth. i made this cuz i got tired of my potato pc start lagging or ending up geting memory full every time i tried to record my progress.
 
-- Less post-processing. It only records when you’re actually doing stuff in Blender, so you don’t get a bunch of boring ahh AKF footage, we all know that u spend 80% of time to just to stare at the beautiful b⭕️⭕️ty that u sculpted😂🫠, you're complete safe from that in here😁. Plus, you can lock it to just the Blender window—no random any other desktop windows or notifications and ofcuz you want record your ph window accidently in your timelapse. So no need to spend hours on cutting out bullsh##ts.
+- Less post-processing. It only records when you’re actually doing stuff in Blender, so you don’t get a bunch of boring ahh AKF footage, we all know that u spending 80% of time to just to stare at the beautiful b⭕️⭕️ty that u sculpted😂🫠, you're complete safe from that in here😁. Plus, you can lock it to just the Blender window—no random any other desktop windows or notifications and ofcuz you want record your ph window accidently in your timelapse. So no need to spend hours on cutting out bullsh##ts.
 
 Level up your workflow, share your process, and happy Blending!
 
