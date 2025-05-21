@@ -64,7 +64,10 @@ screenshot_process = None
 def start_external_app():
     global screenshot_process
     CREATE_NEW_CONSOLE = 0x00000010
-    app_path = bpy.path.abspath("F:/github/SS_ServerApp/x64/Debug/SS_ServerApp.exe")
+    filepath = bpy.path.abspath(__file__)
+    directory = os.path.dirname(filepath)
+    app_path = os.path.join(directory, "extras","SS_ServerApp.exe")
+    
     screenshot_process = subprocess.Popen(
         [app_path],
         stdin=subprocess.PIPE,
@@ -93,8 +96,9 @@ def send_screenshot_command(filepath, image_format, qlty_str, onlyCaptureBlender
         
 def kill_external_app():
     try:
-        
-        app_path = bpy.path.abspath("F:/github/SS_ServerApp/x64/Debug/SS_ServerApp.exe")
+        filepath = bpy.path.abspath(__file__)
+        directory = os.path.dirname(filepath)
+        app_path = os.path.join(directory, "extras","SS_ServerApp.exe")
         subprocess.call(["taskkill", "/F", "/IM", os.path.basename(app_path)])
         print(f"[INFO] Killed external screenshot app: {app_path}")
     except Exception as e:
