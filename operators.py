@@ -20,6 +20,20 @@ onlyCaptureBlender = 0
 
 
 
+
+class StepRecoderPreferences(bpy.types.AddonPreferences):
+    bl_idname = __package__ 
+
+    show_cpp_console: bpy.props.BoolProperty(
+        name="Show SS server App Console",
+        description="Show console window for external SS server app for debugging",
+        default=False,
+    )
+
+    def draw(self, context):
+        layout = self.layout
+        layout.prop(self, "show_cpp_console")
+
 def numeric_sort_key(filename):
     # Extract the first number from the filename for sorting
     match = re.search(r'\d+', filename)
@@ -67,15 +81,26 @@ def start_external_app():
     filepath = bpy.path.abspath(__file__)
     directory = os.path.dirname(filepath)
     app_path = os.path.join(directory, "extras","SS_ServerApp.exe")
+    addon_prefs = bpy.context.preferences.addons[__package__].preferences
+    show_console = addon_prefs.show_cpp_console
     
-    screenshot_process = subprocess.Popen(
-        [app_path],
-        stdin=subprocess.PIPE,
-        
-        creationflags=CREATE_NEW_CONSOLE,
-        text=True
-    )
-    print("[INFO] Screenshot app launched and ready.")
+    if show_console:
+        screenshot_process = subprocess.Popen(
+            [app_path],
+            stdin=subprocess.PIPE,
+            
+            creationflags=CREATE_NEW_CONSOLE,
+            text=True
+        )
+        print("[INFO] Screenshot app launched with the console and ready.")
+    else:
+        screenshot_process = subprocess.Popen(
+            [app_path],
+            stdin=subprocess.PIPE,
+            creationflags=subprocess.CREATE_NO_WINDOW,
+            text=True
+        )
+        print("[INFO] Screenshot app launched without the console and ready.")    
     
 
 def send_screenshot_command(filepath, image_format, qlty_str, onlyCaptureBlenderwindow=0, blenderWindowTitle="Blender"):

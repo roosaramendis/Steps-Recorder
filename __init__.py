@@ -15,6 +15,8 @@ bl_info = {
 import bpy
 import os
 
+
+
 filepath = bpy.path.abspath(__file__)
 directory = os.path.dirname(filepath)
 def register():
@@ -23,7 +25,8 @@ def register():
         StartTimelapseOperator,
         StopTimelapseOperator,
         ExportAsVideoOperator,
-        ManageTimelapseOperator
+        ManageTimelapseOperator,
+        StepRecoderPreferences
         
     )
     
@@ -53,8 +56,8 @@ def register():
     bpy.types.Scene.timelapse_folder = bpy.props.StringProperty(
         name="Base Timelapse Folder",
         subtype='DIR_PATH',
-        #default="//timelapse/"
-        default=os.path.join(directory, "timelapse")
+        default="//Steps Recorder/timelapse/"
+        #default=os.path.join(directory, "timelapse")
     )
     
     bpy.types.Scene.timelapse_screenshot_folder = bpy.props.StringProperty(
@@ -81,6 +84,7 @@ def register():
     bpy.utils.register_class(StopTimelapseOperator)
     bpy.utils.register_class(ExportAsVideoOperator)
     bpy.utils.register_class(ManageTimelapseOperator)
+    bpy.utils.register_class(StepRecoderPreferences)
 
 def unregister():
     from .operators import (
@@ -88,7 +92,8 @@ def unregister():
         StartTimelapseOperator,
         StopTimelapseOperator,
         ExportAsVideoOperator,
-        ManageTimelapseOperator
+        ManageTimelapseOperator,
+        StepRecoderPreferences
     )
     
     # Unregister classes
@@ -97,6 +102,7 @@ def unregister():
     bpy.utils.unregister_class(StopTimelapseOperator)
     bpy.utils.unregister_class(ExportAsVideoOperator)
     bpy.utils.unregister_class(ManageTimelapseOperator)
+    bpy.utils.unregister_class(StepRecoderPreferences)
     
     # Delete properties
     del bpy.types.Scene.timelapse_image_format
