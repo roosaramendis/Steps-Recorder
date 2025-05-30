@@ -314,30 +314,40 @@ class ExportAsVideoOperator(bpy.types.Operator):
         return operator.tooltip
     
     def execute(self, context):
-        base_folder = bpy.path.abspath(context.scene.timelapse_folder)
-        screenshot_folder = os.path.join(base_folder, "screenshots")
-        video_folder = os.path.join(base_folder, "videos")
-        context.scene.timelapse_video_folder = video_folder
-
-        try:
-            os.makedirs(video_folder, exist_ok=True)
-        except PermissionError:
-            self.report({"ERROR"}, "Cannot create video folder.")
+        if bpy.data.is_saved == False or bpy.data.is_dirty:
+            
+            self.report({"ERROR"}, "Please save your Blender file first.")
             return {'CANCELLED'}
+        
+        else:
 
-        video_file = os.path.join(video_folder, "timelapse.mp4")
+            base_folder = bpy.path.abspath(context.scene.timelapse_folder)
+            screenshot_folder = os.path.join(base_folder, "screenshots")
+            video_folder = os.path.join(base_folder, "videos")
+            context.scene.timelapse_video_folder = video_folder
 
-        try:
-            exportAsVideo(screenshot_folder, video_file)
-            self.report({"INFO"}, f"Video created: {video_file}")
-        except Exception as e:
-            self.report({"ERROR"}, str(e))
-            return {'CANCELLED'}
+            try:
+                os.makedirs(video_folder, exist_ok=True)
+            except PermissionError:
+                self.report({"ERROR"}, "Cannot create video folder.")
+                return {'CANCELLED'}
 
-        return {'FINISHED'}
+            video_file = os.path.join(video_folder, "timelapse.mp4")
+
+            try:
+                exportAsVideo(screenshot_folder, video_file)
+                self.report({"INFO"}, f"Video created: {video_file}")
+            except Exception as e:
+                self.report({"ERROR"}, str(e))
+                return {'CANCELLED'}
+
+            return {'FINISHED'}
 
 def exportAsVideo(tl_output_folder, video_file):
-    images = sorted([f for f in os.listdir(tl_output_folder) if f.endswith(('.png', '.jpg'))])
+    images = sorted(
+                [f for f in os.listdir(tl_output_folder) if f.endswith(('.png', '.jpg'))],
+                key=numeric_sort_key
+            )
     if not images:
         raise ValueError("No screenshots found!")
 
@@ -394,8 +404,13 @@ class ManageTimelapseOperator(bpy.types.Operator):
     def execute(self, context):
         scene = context.scene
 
-        # Save the current file
-        bpy.ops.wm.save_mainfile()
+        try:
+            # Save the current file
+            bpy.ops.wm.save_mainfile()
+        except Exception as e:
+            print(f"[ERROR] Failed to save the current file: {e}")
+            ShowMessageBox("Please save your Blender file first.", "Unsaved Blender file", icon='ERROR')
+            return {'CANCELLED'}
 
         #check if the timplapse video edting file already is saved
         original_path = bpy.data.filepath
@@ -404,13 +419,17 @@ class ManageTimelapseOperator(bpy.types.Operator):
         existing_files = [f for f in os.listdir(os.path.dirname(original_path))]
         print(f"[INFO] Existing files: {existing_files}")
         print(f"[INFO] New file path: {new_path}")
+
         if os.path.basename(new_path) in existing_files:
             print("[INFO] File all ready exist")
             ShowMessageBox("Process aborted! File all ready exist: "+ new_path, "File all ready exist", icon='ERROR')
             
             return {'CANCELLED'}
         else:   
-        
+            
+            # Save the current file
+            bpy.ops.wm.save_mainfile()
+
             # clean all objects and data in the current scene
             bpy.ops.object.select_all(action='SELECT')
             bpy.ops.object.delete()
