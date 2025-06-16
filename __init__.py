@@ -31,6 +31,14 @@ def register():
     )
     
     # Register properties
+    
+    bpy.types.Scene.timelapse_rec_only_3D_Viewport = bpy.props.BoolProperty(
+        name="Isolate 3D Viewport",
+        description="Isolate the separated 3D viewport window for the Recording(you can use this to record only the separated 3d viewport and not the whole blender window)",
+        default=False
+    )
+    
+    
     bpy.types.Scene.timelapse_isolate_blender = bpy.props.BoolProperty(
         name="Isolate Blender Window",
         description="Isolate the Blender window for the Recording(you can use this to record only the blender window and not the whole screen)",

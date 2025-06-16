@@ -190,12 +190,16 @@ def take_screenshot(filepath):
         print(f"[INFO] JPEG quality set to: {qlty_str}")
     else:
         qlty_str = "100"    
-    isIsolateBlender = scene.timelapse_isolate_blender    
+    isIsolateBlender = scene.timelapse_isolate_blender
+    isIsolate3DViewport = scene.timelapse_rec_only_3D_Viewport    
     print(f"[INFO] Taking screenshot: {filepath}")
     print(f"[INFO] Isolate Blender Window: {isIsolateBlender}")
     
     onlyCaptureBlender = 1 if isIsolateBlender else 0
-    blenderWindowName = get_blender_window_title()
+    if isIsolate3DViewport:
+        blenderWindowName = "3D Viewport"
+    else:
+        blenderWindowName = get_blender_window_title()   
     print(f"[INFO] Blender Window Name: {blenderWindowName}")
    
     try:
@@ -227,6 +231,9 @@ class TimelapsePanel(bpy.types.Panel):
         box1 = layout.box()
         box1.prop(context.scene, "timelapse_interval", text="Interval (s)")
         box1.prop(context.scene, "timelapse_isolate_blender", text="Isolate Blender Window")
+        box2 = box1.box()
+        box2.enabled = context.scene.timelapse_isolate_blender
+        box2.prop(context.scene, "timelapse_rec_only_3D_Viewport", text="Isolate 3D Viewport")
         if hasattr(context.scene, "timelapse_image_format"):
             box1.prop(context.scene, "timelapse_image_format", text="Image Format")
 
@@ -275,7 +282,7 @@ class StartTimelapseOperator(bpy.types.Operator):
                 existing_files = [f for f in os.listdir(screenshot_folder)]
                 existing_indices = [int(os.path.splitext(f)[0]) for f in existing_files if f.split(".")[0].isdigit()]
                 if existing_indices:
-                    file_index = max(existing_indices)
+                    file_index = max(existing_indices)-1
             except PermissionError:
                 self.report({"ERROR"}, "Cannot create screenshot folder.")
                 return {'CANCELLED'}
@@ -458,11 +465,12 @@ class ManageTimelapseOperator(bpy.types.Operator):
                         for area in screen.areas:
                             if area.type == 'VIEW_3D':
                                 area.type = 'SEQUENCE_EDITOR'
-                                for region in area.regions:
-                                    if region.type == 'WINDOW':
-                                        space = area.spaces.active
-                                        space.view_type = 'PREVIEW'  # Shows preview of video
-                                        space.display_mode = 'IMAGE'  # Ensures preview displays image (or movie)
+                                
+                                for space in area.spaces:
+                                    if space.type == 'SEQUENCE_EDITOR':
+                                        space.view_type = 'PREVIEW'  # Shows video preview in Sequencer
+                                        space.display_mode = 'IMAGE'  
+                                        print("[INFO] Sequencer view_type set to PREVIEW")
                                 print("[INFO] Replaced 3D View with Sequencer in Preview mode in Layout workspace.")
                                 break
                 
