@@ -11,6 +11,7 @@
 #include <locale>
 #include <windows.h>
 #include <gdiplus.h>
+#include <windows.h>
 
 using namespace Gdiplus;
 
@@ -28,7 +29,11 @@ HWND getWindow_from_windowName(const std::string& windowName_str) {
 
     // Find the window with the exact title
     HWND hwnd = FindWindowW(NULL, windowName_wstr.c_str());
-
+	// If not found, try to find a window with the title "Blender"
+    if (hwnd == NULL) {
+        hwnd = FindWindowA(NULL, "Blender");
+    }
+    
     return hwnd; // nullptr if not found
 }
 
@@ -157,6 +162,16 @@ void process_command(const std::string& msg) {
         }
         else {
             std::cerr << "[ERR from CPP] Failed to save screenshot\n";
+            int result = MessageBoxA(
+                NULL,
+                "Failed to save screenshot.\nDo you want to exit the program?",
+                "Error",
+                MB_ICONERROR | MB_YESNO
+            );
+            if (result == IDYES) {
+                exit(EXIT_FAILURE);
+            }
+
         }
     }
     else if (msg == "exit") {

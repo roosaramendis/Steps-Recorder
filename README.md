@@ -26,7 +26,7 @@ Timelapse recorder for Blender. This addon helps you capture every step of your 
 
 # Why you need dis?
 
-- Show off your progress! It’s perfect for making proof-of-work vids, create timelapse for tiktok or anyother platform its super useful n if you want to flex your skills or avoid getting accused of using AI. Fr, with all these AI bulls###s, this is here to you save you.
+- Show off your progress! It’s perfect for making timelapse working progress vids, create timelapse for tiktok or anyother platform its super useful n if you want to flex your skills or avoid getting accused of using AI. Fr, with all these AI bulls###s, this is here to you save you.
 
 - Low resource usage. unlike OBS or other screen recorders that eat up your RAM and slow down Blender (specially if you do some havy stufs), Steps Recorder will helps to keep things smooth. i made this cuz i got tired of my potato pc start lagging or ending up geting memory full every time i tried to record my progress.
 
@@ -38,14 +38,47 @@ Level up your workflow, share your process, and happy Blending!
 # Addon UI
 
 <div align="center">
-    <img src="imgs/1.png" alt="Steps Recorder Preview 1" width="300"/>
-    <img src="imgs/2.png" alt="Steps Recorder Preview 2" width="300"/>
-    <img src="imgs/3.png" alt="Steps Recorder Preview 3" width="300"/>
+    <img src="imgs/4.png" alt="Steps Recorder Preview 1" width="600"/>
+    
+</div>
+
+<div align="center">
+    <img src="imgs/2.png" alt="Steps Recorder Preview 1" width="300"/>
+    <img src="imgs/3.png" alt="Steps Recorder Preview 2" width="300"/>
+    <img src="imgs/1.png" alt="Steps Recorder Preview 3" width="300"/>
 </div>
 
 
 # How to use
 
- aaaaaaaaaa, lazy to type ill add it later
+1. Set Output Folder<br>
+Choose where you want to save your screenshots by clicking the folder icon next to Output Folder.
+
+2. Adjust Capture Interval<br>
+Set how often screenshots should be taken in seconds under Interval (s) less means smooth video, you can drop it until 0.20(personly i use between 0.3 - 1 sec).
+
+3. Set Isolation Options (optional)
+
+    - Enable Isolate Blender Window to only capture Blender.
+
+    - Enable Isolate 3D Viewport to capture only the separated Blender wiondw.
+
+4. Choose Image Format<br>
+Select either JPEG (you can reduced the file size by adjusting quality of image) or PNG for your screenshot format.
+
+5. Start Recording<br>
+Click Start Recording to begin capturing.
+
+6. Stop Recording<br>
+Click Stop Recording to end the capture session(If you start recording again, it will continue from where you left off. even if you close the blender and opend again).
+
+7. Manage Timelapse<br>
+After recording, you can edit or preview your timelapse video using blender video editor by clicking Manage Timelapse Video(recomended), or you can just export them as a video with Export to Video(not recomended, its slow and have less control).
+
+8. Status Indicator<br>
+At the bottom, check the Status to know if recording is active or not.
 
 
+# TO-DO
+
+- Add option to start recording automatically when you open the blender file

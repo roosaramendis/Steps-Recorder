@@ -104,7 +104,7 @@ def start_external_app():
     
 
 def send_screenshot_command(filepath, image_format, qlty_str, onlyCaptureBlenderwindow=0, blenderWindowTitle="Blender"):
-    global screenshot_process
+    global screenshot_process, is_running
     print("[INFO] send_screenshot_command called")
     if screenshot_process and screenshot_process.stdin and screenshot_process.poll() is None:
         print("[INFO] send_screenshot_command IF called")
@@ -118,6 +118,7 @@ def send_screenshot_command(filepath, image_format, qlty_str, onlyCaptureBlender
         
     else:
         print("[ERROR] Screenshot process not running.")
+        is_running = False
         
 def kill_external_app():
     try:
